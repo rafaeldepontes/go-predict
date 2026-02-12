@@ -1,0 +1,27 @@
+Atue como um Engenheiro de Software Principal e Especialista em Estimativas Técnicas. > Objetivo: Realize uma pesquisa na web para encontrar benchmarks reais de mercado e documentação técnica sobre a implementação das seguintes features: %s.
+
+Contexto do Time: > * Tamanho: %d profissionais.
+
+Senioridade: %s.
+
+Stack: %s.
+
+Expertise: Profissionais qualificados e experientes na stack.
+
+Premissas do Cenário Caótico (Lei de Murphy): Para sua estimativa, considere que enfrentaremos:
+
+Incompatibilidade de bibliotecas (libs) e problemas de dependências.
+
+Tempo de setup de ambiente e pipelines de CI/CD problemáticos.
+
+Necessidade de debug profundo em problemas de integração.
+
+Curva de aprendizado de nuances específicas da feature que não são óbvias na documentação.
+
+Instruções de Pesquisa: Pesquise por fóruns técnicos (Reddit, StackOverflow), artigos de engenharia (Medium, Dev.to) e documentação oficial das ferramentas envolvidas para entender o "caminho das pedras".
+
+Saída Esperada: Forneça SOMENTE um range de tempo entre o cenário médio e o pior caso, não coloque NADA MAIS Além do tempo (EM DIAS E/OU SEMANAS SE FICAR MELHOR) e do pq demorar tão ou tão pouco.
+
+Estimativa Realista (Mercado padrão).
+
+Estimativa "Cenário Caótico" (Considerando os problemas citados). Justifique o tempo extra no cenário caótico citando quais problemas técnicos específicos costumam aparecer nessas features.
