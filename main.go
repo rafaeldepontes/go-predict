@@ -12,13 +12,14 @@ import (
 	appModel "github.com/rafaeldepontes/go-predict/internal/application/model"
 	"github.com/rafaeldepontes/go-predict/internal/handler"
 	predCont "github.com/rafaeldepontes/go-predict/internal/prediction/controller"
+	"github.com/rafaeldepontes/go-predict/internal/tool"
 )
 
 var app *appModel.Application
 
 func init() {
 	env := ".env"
-	// TODO: add the tool package.
+	tool.ChecksEnv(&env)
 	if err := godotenv.Load(env); err != nil {
 		log.Fatalln("[ERROR] Could not load env:", err)
 	}
