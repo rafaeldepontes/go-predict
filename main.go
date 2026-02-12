@@ -27,7 +27,7 @@ func main() {
 	r := chi.NewRouter()
 	handler.ConfigHandler(r, app)
 
-	log.Println("Application running...")
+	log.Println("[LOG] Application running...")
 	log.Fatalln(http.ListenAndServe(":8080", r))
 }
 

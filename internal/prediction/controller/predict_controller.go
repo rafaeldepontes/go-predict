@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/rafaeldepontes/go-predict/internal/prediction"
@@ -20,13 +21,14 @@ func NewController() prediction.Controller {
 }
 
 func (c *predCont) Predict(w http.ResponseWriter, r *http.Request) {
-	var text *textModel.TextReq
-	if err := json.NewDecoder(r.Body).Decode(text); err != nil {
+	var text textModel.TextReq
+	if err := json.NewDecoder(r.Body).Decode(&text); err != nil {
+		log.Println("[ERROR] Could not decode the request body:", err)
 		http.Error(w, "Something went really bad...", http.StatusInternalServerError)
 		return
 	}
 
-	_, err := c.Service.Predict(r.Context(), text)
+	_, err := c.Service.Predict(r.Context(), &text)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
