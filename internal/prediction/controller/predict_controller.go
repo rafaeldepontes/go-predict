@@ -1,10 +1,12 @@
 package controller
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/rafaeldepontes/go-predict/internal/prediction"
 	service "github.com/rafaeldepontes/go-predict/internal/prediction/service"
+	textModel "github.com/rafaeldepontes/go-predict/internal/text/model"
 )
 
 type predCont struct {
@@ -18,7 +20,13 @@ func NewController() prediction.Controller {
 }
 
 func (c *predCont) Predict(w http.ResponseWriter, r *http.Request) {
-	_, err := c.Service.Predict("")
+	var text *textModel.TextReq
+	if err := json.NewDecoder(r.Body).Decode(text); err != nil {
+		http.Error(w, "Something went really bad...", http.StatusInternalServerError)
+		return
+	}
+
+	_, err := c.Service.Predict(r.Context(), text)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
