@@ -28,12 +28,14 @@ func (c *predCont) Predict(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := c.Service.Predict(r.Context(), &text)
+	result, err := c.Service.Predict(r.Context(), &text)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	resp := map[string]string{"data": result}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(resp)
 }

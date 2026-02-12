@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/rafaeldepontes/go-predict/internal/prediction"
@@ -13,8 +14,6 @@ import (
 
 	"google.golang.org/genai"
 )
-
-const Model = "gemini-3-flash-preview"
 
 type svc struct{}
 
@@ -41,7 +40,6 @@ func (s *svc) Predict(ctx context.Context, text *textModel.TextReq) (string, err
 		return "", errors.New("Something went really bad...")
 	}
 
-	log.Println("[INFO] Message:\n", sb.String())
 	// Create the client config
 	// ...
 
@@ -53,7 +51,7 @@ func (s *svc) Predict(ctx context.Context, text *textModel.TextReq) (string, err
 
 	result, err := client.Models.GenerateContent(
 		ctx,
-		Model,
+		os.Getenv("MODEL"),
 		genai.Text(sb.String()),
 		nil,
 	)

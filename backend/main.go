@@ -30,13 +30,13 @@ func init() {
 func main() {
 	r := chi.NewRouter()
 	handler.ConfigHandler(r, app)
+	port := os.Getenv("BACKEND_PORT")
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGINT)
-
 	go func() {
 		log.Println("[INFO] Application running...")
-		log.Fatalln(http.ListenAndServe(":8080", r))
+		log.Fatalln(http.ListenAndServe(":"+port, r))
 	}()
 
 	<-sigChan

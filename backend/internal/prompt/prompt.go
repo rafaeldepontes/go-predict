@@ -19,7 +19,7 @@ func load() {
 	// For now this is only a test... this should be inside the OS etc...
 	//
 	// And also should be a environment variable instead of hard coded.
-	f, err := os.Open("./internal/prompt/prompt.txt")
+	f, err := os.Open(os.Getenv("FILE_PATH"))
 	if err != nil {
 		log.Println("[ERROR] Could not load the prompt...", err)
 		return
