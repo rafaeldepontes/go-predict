@@ -3,6 +3,9 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/joho/godotenv"
@@ -27,8 +30,18 @@ func main() {
 	r := chi.NewRouter()
 	handler.ConfigHandler(r, app)
 
-	log.Println("[LOG] Application running...")
-	log.Fatalln(http.ListenAndServe(":8080", r))
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGTERM, syscall.SIGQUIT, syscall.SIGINT)
+
+	go func() {
+		log.Println("[INFO] Application running...")
+		log.Fatalln(http.ListenAndServe(":8080", r))
+	}()
+
+	<-sigChan
+	log.Println("[INFO] Trying to shut down gracefully")
+	//...
+	log.Println("[INFO] Shut down successfully")
 }
 
 func newApplication() *appModel.Application {
