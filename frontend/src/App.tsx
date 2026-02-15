@@ -7,6 +7,10 @@ import StackSelector from "./components/StackSelector"
 import TeamSizeTextBox from "./components/TeamSizeTextBox"
 import TeamSkillSelector from "./components/TeamSkillSelector"
 
+interface Response {
+  data: string,
+}
+
 function App() {
   const [teamSize, setTeamSize] = useState(1)
   const [seniority, setSeniority] = useState("")
@@ -34,8 +38,8 @@ function App() {
       }),
     })
 
-    const text = await resp.text()
-    setPrediction(text)
+    const text: Response = await resp.json()
+    setPrediction(text.data)
     setLoading(false)
   }
 
