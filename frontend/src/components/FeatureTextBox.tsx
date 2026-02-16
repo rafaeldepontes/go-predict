@@ -16,7 +16,7 @@ export default function FeatureTextBox({ value, onChange }: FeatureTextBoxProps)
 
     return (
         <div>
-            <p>Feature(s)</p>
+            <label>Feature(s):</label>
             <textarea
                 value={internalValue}
                 onChange={handleChange}

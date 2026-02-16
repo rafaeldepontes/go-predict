@@ -31,8 +31,9 @@ export default function TeamSkillSelector({ value, onChange }: Props) {
 
     return (
         <div>
-            <p>Seniority:</p>
+            <label>Seniority:</label>
             <select value={value} onChange={(e) => onChange(e.target.value)}>
+                <option value="" disabled>Select...</option>
                 {options.map(o => (
                     <option key={o.id} value={o.data}>{o.data}</option>
                 ))}

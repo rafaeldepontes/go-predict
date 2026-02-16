@@ -31,7 +31,7 @@ export default function StackSelector({ value, onChange }: Props) {
 
     return (
         <div>
-            <p>Stack:</p>
+            <label>Stack:</label>
             <select
                 value={value}
                 multiple
@@ -41,6 +41,7 @@ export default function StackSelector({ value, onChange }: Props) {
                     )
                     onChange(selected)
                 }}
+                size={10}
             >
                 {options.map((o) => (
                     <option key={o.id} value={o.data}>

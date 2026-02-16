@@ -6,7 +6,7 @@ interface Props {
 export default function TeamSizeTextBox({ value, onChange }: Props) {
     return (
         <div>
-            <p>Team Size:</p>
+            <label>Team Size:</label>
             <input
                 type="number"
                 min={1}

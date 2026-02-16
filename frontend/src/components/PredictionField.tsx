@@ -6,25 +6,27 @@ interface Props {
 }
 
 export default function PredictionField({ value, loading }: Props) {
-    const content = loading ? "Thinking..." : value;
-
     return (
-        <div style={{ flex: 1 }}>
-            <p>Prediction:</p>
-
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <label>Prediction Output</label>
             <div
+                className="prediction-box"
                 style={{
-                    width: "100%",
-                    height: "70%",
+                    flex: 1,
                     overflow: "auto",
-                    padding: "12px",
-                    border: "1px solid #ccc",
-                    borderRadius: "6px",
-                    background: "#181818",
-                    textAlign: "left"
+                    padding: "24px",
+                    border: "1px solid var(--border-color)",
+                    borderRadius: "12px",
+                    background: "#09090b",
+                    lineHeight: '1.6',
+                    fontSize: '0.95rem'
                 }}
             >
-                <ReactMarkdown>{content}</ReactMarkdown>
+                {loading ? (
+                    <div className="shimmer">Generating report...</div>
+                ) : (
+                    <ReactMarkdown>{value}</ReactMarkdown>
+                )}
             </div>
         </div>
     )
