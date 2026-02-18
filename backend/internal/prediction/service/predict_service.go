@@ -45,7 +45,7 @@ func (s *svc) Predict(ctx context.Context, text *textModel.TextReq) (string, err
 
 	client, err := genai.NewClient(ctx, nil)
 	if err != nil {
-		log.Println("[ERROR Could not connect to gemini:", err)
+		log.Println("[ERROR] Could not connect to gemini:", err)
 		return "", errors.New("Something went really bad...")
 	}
 
