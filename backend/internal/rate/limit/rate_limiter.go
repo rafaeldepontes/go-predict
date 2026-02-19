@@ -13,7 +13,7 @@ type Middleware struct {
 
 func NewMiddleware() *Middleware {
 	return &Middleware{
-		rl: rate.NewLimiter(1, 1),
+		rl: rate.NewLimiter(1, 2),
 	}
 }
 

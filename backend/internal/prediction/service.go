@@ -8,4 +8,5 @@ import (
 
 type Service interface {
 	Predict(ctx context.Context, text *textModel.TextReq) (string, error)
+	TestPredict(ctx context.Context, text *textModel.TextReq) (string, error)
 }

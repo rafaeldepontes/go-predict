@@ -59,17 +59,43 @@ func (s *svc) Predict(ctx context.Context, text *textModel.TextReq) (string, err
 	return result.Text(), nil
 }
 
+func (s *svc) TestPredict(ctx context.Context, text *textModel.TextReq) (string, error) {
+	if err := validateRequest(text); err != nil {
+		return "", err
+	}
+
+	msg := fmt.Sprintf(
+		*prompt.Get(),
+		text.Body,
+		text.TeamSize,
+		text.Level,
+		text.Stack,
+	)
+
+	var sb strings.Builder
+	if _, err := sb.WriteString(msg); err != nil {
+		log.Println("[ERROR] Could not create the prompt:", err)
+		return "", errors.New("Something went really bad...")
+	}
+
+	return "Just testing... don't want to waste my tokens...", nil
+}
+
 func validateRequest(text *textModel.TextReq) error {
 	if text == nil || strings.TrimSpace(text.Body) == "" {
-		return errors.New("Cannot send an empty message, please type something...")
+		return errors.New("Cannot make a prediction without the features.")
 	}
 
 	if text.TeamSize <= 0 {
-		return errors.New("Cannot send a message with no team, define a team size...")
+		return errors.New("Cannot make a prediction without the team size.")
 	}
 
 	if strings.TrimSpace(text.Stack) == "" {
-		return errors.New("Cannot send a message with no stack, please choose a stack...")
+		return errors.New("Cannot make a prediction without the stack.")
+	}
+
+	if text.Level == "" {
+		return errors.New("Cannot make a prediction without the team seniority.")
 	}
 
 	return nil
