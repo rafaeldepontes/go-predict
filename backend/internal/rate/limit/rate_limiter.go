@@ -24,7 +24,6 @@ func (m *Middleware) GlobalRateLimit(h http.Handler) http.Handler {
 			http.Error(w, "Too many requests.", http.StatusTooManyRequests)
 			return
 		}
-
 		h.ServeHTTP(w, r)
 	})
 }
