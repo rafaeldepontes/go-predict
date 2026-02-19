@@ -25,6 +25,8 @@ func ConfigHandler(r *chi.Mux, app *appModel.Application) {
 	}))
 
 	r.Group(func(r chi.Router) {
+		r.Use(app.Middleware.GlobalRateLimit)
+
 		r.Post("/api/v1/predict", app.PredictionController.Predict)
 
 		r.Get("/api/v1/seniorities", func(w http.ResponseWriter, r *http.Request) {
