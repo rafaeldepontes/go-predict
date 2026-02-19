@@ -38,6 +38,11 @@ export default function App() {
 			}),
 		})
 
+		if (!resp.ok) {
+			setLoading(false)
+			return
+		}
+
 		const text: Response = await resp.json()
 		setPrediction(text.data)
 		setLoading(false)
