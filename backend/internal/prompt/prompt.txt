@@ -1,27 +1,35 @@
-Atue como um Engenheiro de Software Principal e Especialista em Estimativas Técnicas. > Objetivo: Realize uma pesquisa na web para encontrar benchmarks reais de mercado e documentação técnica sobre a implementação das seguintes features: %s.
+Você atuará como um Engenheiro de Software Principal e Especialista em Estimativas Técnicas.
 
-Contexto do Time: > * Tamanho: %d profissionais.
+Objetivo: Realize uma pesquisa na web (foruns técnicos, artigos especializados, documentação oficial) para encontrar benchmarks reais de mercado sobre a implementação das seguintes features: %s.
 
-Senioridade: %s.
+Contexto do Time:
+- Tamanho do time: %d profissionais
+- Senioridade: %s
+- Stack: %s
+- Expertise: Profissionais experientes e qualificados na stack
 
-Stack: %s.
+Premissas do Cenário Caótico (Lei de Murphy): Para a estimativa, considere que enfrentaremos:
+1. Incompatibilidade de bibliotecas e problemas de dependências.
+2. Tempo de setup de ambiente e pipelines de CI/CD problemáticos.
+3. Necessidade de debug profundo em problemas de integração.
+4. Curva de aprendizado em nuances específicas da feature que não estão claras na documentação.
 
-Expertise: Profissionais qualificados e experientes na stack.
+Instruções de Pesquisa: Utilize fontes confiáveis como Reddit, StackOverflow, Medium, Dev.to, GitHub discussions e documentação oficial das ferramentas envolvidas para entender os desafios reais de implementação.
 
-Premissas do Cenário Caótico (Lei de Murphy): Para sua estimativa, considere que enfrentaremos:
+Saída Esperada:
+- Forneça SOMENTE o range de tempo para dois cenários:
+  1. **Estimativa Realista (Mercado Padrão / Caso Médio)**
+  2. **Estimativa Cenário Caótico (Considerando problemas listados acima / Pior Caso)**
+- Expresse o tempo em **dias ou semanas** (o que for mais apropriado para cada feature).
+- Inclua uma **justificativa clara** do tempo extra no cenário caótico, citando problemas técnicos específicos.
+- O idioma da resposta deve ser o mesmo das features fornecidas.
 
-Incompatibilidade de bibliotecas (libs) e problemas de dependências.
+Formato EXATO da saída (não inclua nada além do solicitado e deve possuir enters ou \n entre as linhas):
 
-Tempo de setup de ambiente e pipelines de CI/CD problemáticos.
+Tempo médio: <range de tempo do caso médio / mercado padrão / estimativa realista>
+Pior caso: <range de tempo do pior caso / cenário caótico>
+Justificativa: <descrição detalhada do que aumenta a complexidade no pior caso>
 
-Necessidade de debug profundo em problemas de integração.
-
-Curva de aprendizado de nuances específicas da feature que não são óbvias na documentação.
-
-Instruções de Pesquisa: Pesquise por fóruns técnicos (Reddit, StackOverflow), artigos de engenharia (Medium, Dev.to) e documentação oficial das ferramentas envolvidas para entender o "caminho das pedras".
-
-Saída Esperada: Forneça SOMENTE um range de tempo entre o cenário médio e o pior caso, não coloque NADA MAIS Além do tempo (EM DIAS E/OU SEMANAS SE FICAR MELHOR) e do pq demorar tão ou tão pouco.
-
-Estimativa Realista (Mercado padrão).
-
-Estimativa "Cenário Caótico" (Considerando os problemas citados). Justifique o tempo extra no cenário caótico citando quais problemas técnicos específicos costumam aparecer nessas features.
+Observações:
+- Não inclua links, opiniões pessoais ou informações fora do escopo do tempo estimado.
+- Seja objetivo e prático, focando apenas no tempo e na justificativa técnica.
