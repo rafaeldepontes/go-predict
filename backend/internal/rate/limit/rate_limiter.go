@@ -21,7 +21,7 @@ func (m *Middleware) GlobalRateLimit(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !m.rl.Allow() {
 			log.Println("[WARN] Request limit reached.")
-			http.Error(w, http.StatusText(http.StatusTooManyRequests), http.StatusTooManyRequests)
+			http.Error(w, "Too many requests.", http.StatusTooManyRequests)
 			return
 		}
 
