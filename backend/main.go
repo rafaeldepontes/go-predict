@@ -12,6 +12,7 @@ import (
 	appModel "github.com/rafaeldepontes/go-predict/internal/application/model"
 	"github.com/rafaeldepontes/go-predict/internal/handler"
 	predCont "github.com/rafaeldepontes/go-predict/internal/prediction/controller"
+	"github.com/rafaeldepontes/go-predict/internal/rate/limit"
 	"github.com/rafaeldepontes/go-predict/internal/tool"
 )
 
@@ -47,6 +48,7 @@ func main() {
 
 func newApplication() *appModel.Application {
 	return &appModel.Application{
+		Middleware:           limit.NewMiddleware(),
 		PredictionController: predCont.NewController(),
 	}
 }
