@@ -15,6 +15,10 @@ func Get() *string {
 	return &prompt
 }
 
+func ResetForTest() {
+	prompt = ""
+}
+
 func load() {
 	// For now this is only a test... this should be inside the OS etc...
 	//

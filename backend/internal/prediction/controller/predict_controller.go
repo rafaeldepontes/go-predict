@@ -10,17 +10,17 @@ import (
 	textModel "github.com/rafaeldepontes/go-predict/internal/text/model"
 )
 
-type predCont struct {
+type PredCont struct {
 	Service prediction.Service
 }
 
 func NewController() prediction.Controller {
-	return &predCont{
+	return &PredCont{
 		Service: service.NewService(),
 	}
 }
 
-func (c *predCont) Predict(w http.ResponseWriter, r *http.Request) {
+func (c *PredCont) Predict(w http.ResponseWriter, r *http.Request) {
 	var text textModel.TextReq
 	if err := json.NewDecoder(r.Body).Decode(&text); err != nil {
 		log.Println("[ERROR] Could not decode the request body:", err)

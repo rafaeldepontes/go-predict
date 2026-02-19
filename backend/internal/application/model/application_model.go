@@ -7,5 +7,5 @@ import (
 
 type Application struct {
 	PredictionController prediction.Controller
-	Middleware           *limit.Middleware
+	Middleware           limit.Middleware
 }
