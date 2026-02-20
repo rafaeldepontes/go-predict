@@ -24,6 +24,14 @@ body {
   box-sizing: border-box;
 }
 
+.footer {
+  grid-column: 1 / -1;   /* span entire container width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 16px;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -57,6 +65,7 @@ body {
 .container {
   display: grid;
   grid-template-columns: 410px 650px;
+  grid-template-rows: auto 1fr auto;
   gap: 1rem;
 
   width: 100%;

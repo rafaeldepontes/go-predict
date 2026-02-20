@@ -98,6 +98,11 @@ export default function App() {
 				<div className="right">
 					<PredictionField value={prediction} loading={loading} />
 				</div>
+
+				<footer className="footer">
+					<small>Go Predict · Built by Rafael · <a href="https://github.com/rafaeldepontes/go-predict" target="_blank"
+						rel="noopener" style={{ color: "var(--accent)" }}>Open on GitHub</a></small>
+				</footer>
 			</main>
 		</>
 	)

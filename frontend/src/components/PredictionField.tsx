@@ -8,7 +8,7 @@ interface Props {
 export default function PredictionField({ value, loading }: Props) {
     return (
         <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <label>Prediction Output</label>
+            <label>Prediction Output:</label>
             <div
                 className="prediction-box"
                 style={{
@@ -25,7 +25,7 @@ export default function PredictionField({ value, loading }: Props) {
                 {loading ? (
                     <div className="shimmer">Generating report...</div>
                 ) : (
-                    <ReactMarkdown>{value}</ReactMarkdown>
+                    value === "" ? <ReactMarkdown>No prediction generated yet.</ReactMarkdown> : <ReactMarkdown>{value}</ReactMarkdown>
                 )}
             </div>
         </div>
