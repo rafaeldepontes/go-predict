@@ -24,6 +24,11 @@ func ConfigHandler(r *chi.Mux, app *appModel.Application) {
 		MaxAge:           300, //5 min
 	}))
 
+	r.Get("/health-check", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain")
+		w.Write([]byte("ok"))
+	})
+
 	r.Group(func(r chi.Router) {
 		r.Use(app.Middleware.GlobalRateLimit)
 
