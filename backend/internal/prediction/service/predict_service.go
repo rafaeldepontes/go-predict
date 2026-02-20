@@ -8,7 +8,6 @@ import (
 	"log"
 	"os"
 
-	// "os"
 	"strings"
 
 	"github.com/rafaeldepontes/go-predict/internal/prediction"
