@@ -50,12 +50,12 @@ func TestGet(t *testing.T) {
 
 			got := prompt.Get()
 			if tt.wantErr {
-				if *got != "" {
-					t.Errorf("Expected empty prompt for missing file, got: %v", *got)
+				if len(got) > 0 {
+					t.Errorf("Expected empty prompt for missing file, got: %v", len(got))
 				}
 			} else {
-				if *got != tt.fileContent {
-					t.Errorf("Get() = %v, want %v", *got, tt.fileContent)
+				if string(got) != tt.fileContent {
+					t.Errorf("Get() = %v, want %v", string(got), tt.fileContent)
 				}
 			}
 		})

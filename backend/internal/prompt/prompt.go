@@ -6,23 +6,20 @@ import (
 	"os"
 )
 
-var prompt string
+var prompt []byte
 
-func Get() *string {
-	if prompt == "" {
+func Get() []byte {
+	if len(prompt) < 1 {
 		load()
 	}
-	return &prompt
+	return prompt
 }
 
 func ResetForTest() {
-	prompt = ""
+	prompt = []byte{}
 }
 
 func load() {
-	// For now this is only a test... this should be inside the OS etc...
-	//
-	// And also should be a environment variable instead of hard coded.
 	f, err := os.Open(os.Getenv("FILE_PATH"))
 	if err != nil {
 		log.Println("[ERROR] Could not load the prompt...", err)
@@ -34,5 +31,5 @@ func load() {
 		log.Println("[ERROR] Could not read the prompt...", err)
 		return
 	}
-	prompt = string(b)
+	prompt = b
 }

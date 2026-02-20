@@ -1,6 +1,7 @@
 package service
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"fmt"
@@ -26,8 +27,13 @@ func (s *svc) Predict(ctx context.Context, text *textModel.TextReq) (string, err
 		return "", err
 	}
 
+	promptBody := prompt.Get()
+	idx := bytes.IndexByte(promptBody, '\n')
+
+	modelCtx, promptF := promptBody[:idx+1], promptBody[idx+1:]
+
 	msg := fmt.Sprintf(
-		*prompt.Get(),
+		string(promptF),
 		text.Body,
 		text.TeamSize,
 		text.Level,
@@ -46,12 +52,17 @@ func (s *svc) Predict(ctx context.Context, text *textModel.TextReq) (string, err
 		return "", errors.New("Something went really bad...")
 	}
 
+	config := &genai.GenerateContentConfig{
+		SystemInstruction: genai.NewContentFromText(string(modelCtx), genai.RoleModel),
+	}
+
 	result, err := client.Models.GenerateContent(
 		ctx,
 		os.Getenv("MODEL"),
 		genai.Text(sb.String()),
-		nil,
+		config,
 	)
+
 	if err != nil {
 		log.Println("[ERROR] Could not get a response from gemini:", err)
 		return "", errors.New("Something went really bad...")
@@ -65,7 +76,7 @@ func (s *svc) TestPredict(ctx context.Context, text *textModel.TextReq) (string,
 	}
 
 	msg := fmt.Sprintf(
-		*prompt.Get(),
+		"Test, %v, %d, %v, %v",
 		text.Body,
 		text.TeamSize,
 		text.Level,
