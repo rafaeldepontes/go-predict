@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+
 	"strings"
 
 	"github.com/rafaeldepontes/go-predict/internal/prediction"
@@ -52,6 +53,16 @@ func (s *svc) Predict(ctx context.Context, text *textModel.TextReq) (string, err
 		return "", errors.New("Something went really bad...")
 	}
 
+	countResp, err := client.Models.CountTokens(ctx, os.Getenv("MODEL"),
+		genai.Text(sb.String()),
+		nil,
+	)
+	if err != nil {
+		log.Println("[ERROR] Could not count the amount of tokens:", err)
+		return "", errors.New("Something went really bad...")
+	}
+	log.Println("[INFO] Tokens spent:", countResp.TotalTokens)
+
 	config := &genai.GenerateContentConfig{
 		SystemInstruction: genai.NewContentFromText(string(modelCtx), genai.RoleModel),
 	}
@@ -62,7 +73,6 @@ func (s *svc) Predict(ctx context.Context, text *textModel.TextReq) (string, err
 		genai.Text(sb.String()),
 		config,
 	)
-
 	if err != nil {
 		log.Println("[ERROR] Could not get a response from gemini:", err)
 		return "", errors.New("Something went really bad...")
