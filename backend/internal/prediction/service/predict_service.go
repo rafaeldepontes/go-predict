@@ -7,9 +7,12 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 
 	"strings"
 
+	"github.com/rafaeldepontes/go-predict/internal/cache"
+	"github.com/rafaeldepontes/go-predict/internal/cache/predictc"
 	"github.com/rafaeldepontes/go-predict/internal/prediction"
 	"github.com/rafaeldepontes/go-predict/internal/prompt"
 	textModel "github.com/rafaeldepontes/go-predict/internal/text/model"
@@ -17,15 +20,29 @@ import (
 	"google.golang.org/genai"
 )
 
-type svc struct{}
+type svc struct {
+	cache cache.Cache[string, string]
+}
 
 func NewService() prediction.Service {
-	return &svc{}
+	return &svc{
+		cache: predictc.NewCache[string](),
+	}
 }
 
 func (s *svc) Predict(ctx context.Context, text *textModel.TextReq) (string, error) {
 	if err := validateRequest(text); err != nil {
 		return "", err
+	}
+
+	var sbCache strings.Builder
+	sbCache.WriteString(text.Body)
+	sbCache.WriteString(strconv.Itoa(text.TeamSize))
+	sbCache.WriteString(text.Level)
+	sbCache.WriteString(text.Stack)
+
+	if val, has := s.cache.Get(sbCache.String()); has {
+		return val, nil
 	}
 
 	promptBody := prompt.Get()
@@ -77,6 +94,9 @@ func (s *svc) Predict(ctx context.Context, text *textModel.TextReq) (string, err
 		log.Println("[ERROR] Could not get a response from gemini:", err)
 		return "", errors.New("Something went really bad...")
 	}
+
+	s.cache.Add(sbCache.String(), result.Text())
+
 	return result.Text(), nil
 }
 
@@ -99,7 +119,9 @@ func (s *svc) TestPredict(ctx context.Context, text *textModel.TextReq) (string,
 		return "", errors.New("Something went really bad...")
 	}
 
-	return "Just testing... don't want to waste my tokens...", nil
+	resp := "**Tempo Médio:** 1.5 - 2.5 days\n\n**Pior Caso:** 4 - 6 days\n\n**Justificativa:**\n\nblablablablablablah"
+
+	return resp, nil
 }
 
 func validateRequest(text *textModel.TextReq) error {
