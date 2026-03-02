@@ -76,10 +76,16 @@ export default function App() {
 			<main className="container">
 				<header style={{ gridColumn: '1 / -1' }}>
 					<h1>Project Estimator<span style={{ color: 'var(--accent-color)' }}>.</span></h1>
-					<p style={{ color: 'var(--text-secondary)', marginTop: '-10px' }}>
+					<p style={{ color: 'var(--text-secondary)', marginTop: '-10px', marginBottom: '2px' }}>
 						Put your team and predict effort.
 					</p>
-				</header>
+					<small style={{
+						color: '#6d4e00',
+						marginTop: '-10px',
+						fontSize: 12,
+					}}>
+						This process may take a few moments. Please be patient.
+					</small>				</header>
 
 				<div className="left">
 					<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>

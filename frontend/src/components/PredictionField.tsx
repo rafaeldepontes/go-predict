@@ -1,8 +1,31 @@
 import ReactMarkdown from "react-markdown"
+import remarkBreaks from 'remark-breaks'
 
 interface Props {
     value: string
     loading: boolean
+}
+
+/*
+* Response parser
+*/
+function formatPrediction(text: string) {
+    if (!text) return text
+
+    const labels = ["Tempo médio:", "Pior caso:", "Justificativa:"]
+
+    return text
+        .split("\n")
+        .map((line) => {
+            const trimmed = line.trim()
+
+            const match = labels.find(label => trimmed.startsWith(label))
+            if (!match) return line
+
+            const content = line.slice(match.length)
+            return `**${match}**${content}`
+        })
+        .join("\n")
 }
 
 export default function PredictionField({ value, loading }: Props) {
@@ -25,7 +48,9 @@ export default function PredictionField({ value, loading }: Props) {
                 {loading ? (
                     <div className="shimmer">Generating report...</div>
                 ) : (
-                    value === "" ? <ReactMarkdown>No prediction generated yet.</ReactMarkdown> : <ReactMarkdown>{value}</ReactMarkdown>
+                    value === ""
+                        ? <ReactMarkdown>No prediction generated yet.</ReactMarkdown>
+                        : <ReactMarkdown remarkPlugins={[remarkBreaks]}>{formatPrediction(value)}</ReactMarkdown>
                 )}
             </div>
         </div>

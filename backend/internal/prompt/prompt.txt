@@ -26,8 +26,11 @@ Saída Esperada:
 - Expresse o tempo em **dias ou semanas**, conforme apropriado para cada feature.
 - Inclua uma **justificativa detalhada** para o tempo extra no cenário caótico, mencionando problemas técnicos específicos e exemplos práticos.
 - O idioma da resposta deve ser **o mesmo das features fornecidas**.
+- Traduza também os rótulos do template final para o mesmo idioma das features.
+- Use o ENTER na saída.
+- Os rótulos devem estar em negrito usando Markdown (**).
 
-Formato EXATO da saída (não inclua nada além do solicitado; use `\n` entre linhas):
+Formato EXATO da saída (não inclua nada além do solicitado; use a tecla ENTER para dar espaço entre linhas):
 
 Tempo médio: <range de tempo do caso médio / mercado padrão / estimativa realista>
 Pior caso: <range de tempo do pior caso / cenário caótico>
