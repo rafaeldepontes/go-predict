@@ -169,15 +169,15 @@ select:hover {
 }
 
 button {
-  background: var(--accent-color);
+  margin: 0px;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
   color: white;
   font-weight: 600;
-  padding: 12px;
   border-radius: 6px;
-  border: none;
-  cursor: pointer;
   transition: opacity 0.2s;
-  margin-top: 1rem;
+  background: var(--accent-color);
 }
 
 button:hover {
@@ -245,4 +245,31 @@ button:disabled {
     transform: translateX(0);
     opacity: 1;
   }
+}
+
+.feature-textbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.char-counter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+  margin-bottom: 1px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.counter-text {
+  transition: color 0.2s ease;
+}
+
+.counter-text.warning {
+  color: #f59e0b;
+}
+
+.counter-text.danger {
+  color: #ff4d4f;
 }
