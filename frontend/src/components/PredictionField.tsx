@@ -1,4 +1,5 @@
 import ReactMarkdown from "react-markdown"
+import remarkBreaks from 'remark-breaks'
 
 interface Props {
     value: string
@@ -49,7 +50,7 @@ export default function PredictionField({ value, loading }: Props) {
                 ) : (
                     value === ""
                         ? <ReactMarkdown>No prediction generated yet.</ReactMarkdown>
-                        : <ReactMarkdown>{formatPrediction(value)}</ReactMarkdown>
+                        : <ReactMarkdown remarkPlugins={[remarkBreaks]}>{formatPrediction(value)}</ReactMarkdown>
                 )}
             </div>
         </div>
