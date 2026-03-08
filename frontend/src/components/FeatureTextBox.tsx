@@ -1,4 +1,5 @@
 import { useState } from "react"
+import styles from "./FeatureTextBox.module.css"
 
 interface FeatureTextBoxProps {
     value?: string
@@ -19,7 +20,7 @@ export default function FeatureTextBox({ value, onChange }: FeatureTextBoxProps)
     }
 
     return (
-        <div className="feature-textbox">
+        <div className={styles["feature-textbox"]}>
             <label>Feature(s):</label>
 
             <textarea
@@ -30,13 +31,13 @@ export default function FeatureTextBox({ value, onChange }: FeatureTextBoxProps)
                 maxLength={MAX_LENGTH}
             />
 
-            <div className="char-counter">
+            <div className={styles["char-counter"]}>
                 <span
-                    className={`counter-text ${percentage > 90
-                            ? "danger"
-                            : percentage > 70
-                                ? "warning"
-                                : ""
+                    className={`${styles["counter-text"]} ${percentage > 90
+                        ? styles.danger
+                        : percentage > 70
+                            ? styles.warning
+                            : ""
                         }`}
                 >
                     {charCount}/{MAX_LENGTH}
