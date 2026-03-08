@@ -7,6 +7,15 @@ import StackSelector from "./components/StackSelector"
 import TeamSizeTextBox from "./components/TeamSizeTextBox"
 import TeamSkillSelector from "./components/TeamSkillSelector"
 import ErrorPopUp from "./components/ErrorPopUp"
+import Footer from "./components/Footer"
+import PredictionButton from "./components/PredictionButton"
+
+interface PredictRequest {
+	body: string,
+	size: number,
+	stack: string,
+	level: string,
+}
 
 interface Response {
 	data: string,
@@ -15,6 +24,24 @@ interface Response {
 interface RequestError {
 	occurred: boolean,
 	msg: string,
+}
+
+function validateFields(predReq: PredictRequest) {
+	if (predReq.size == 0) {
+		throw new Error("Team Size field can't be 0")
+	}
+
+	if (predReq.level == "") {
+		throw new Error("Choose the team's seniority")
+	}
+
+	if (predReq.stack == "") {
+		throw new Error("Choose a stack")
+	}
+
+	if (predReq.body == "") {
+		throw new Error("Define the feature(s)")
+	}
 }
 
 const initialError: RequestError = { msg: "", occurred: false }
@@ -34,17 +61,20 @@ export default function App() {
 		setError(initialError)
 
 		try {
-			let stackReq = stack.join(" ")
+			const stackReq = stack.join(" ")
+
+			const body: PredictRequest = {
+				body: feature,
+				size: teamSize,
+				stack: stackReq,
+				level: seniority,
+			}
+			validateFields(body)
 
 			const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/predict`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					body: feature,
-					size: teamSize,
-					stack: stackReq,
-					level: seniority,
-				}),
+				body: JSON.stringify(body),
 			})
 
 			if (!resp.ok) {
@@ -79,13 +109,7 @@ export default function App() {
 					<p style={{ color: 'var(--text-secondary)', marginTop: '-10px', marginBottom: '2px' }}>
 						Put your team and predict effort.
 					</p>
-					<small style={{
-						color: '#6d4e00',
-						marginTop: '-10px',
-						fontSize: 12,
-					}}>
-						This process may take a few moments. Please be patient.
-					</small>				</header>
+				</header>
 
 				<div className="left">
 					<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
@@ -96,19 +120,13 @@ export default function App() {
 					<StackSelector value={stack} onChange={setStack} />
 					<FeatureTextBox value={feature} onChange={setFeature} />
 
-					<button onClick={handlePredict} disabled={loading}>
-						{loading ? "Calculating..." : "Make Prediction"}
-					</button>
+					<PredictionButton onClick={handlePredict} loading={loading} />
 				</div>
 
 				<div className="right">
 					<PredictionField value={prediction} loading={loading} />
 				</div>
-
-				<footer className="footer">
-					<small>Go Predict · Built by Rafael · <a href="https://github.com/rafaeldepontes/go-predict" target="_blank"
-						rel="noopener" style={{ color: "var(--accent)" }}>Open on GitHub</a></small>
-				</footer>
+				<Footer />
 			</main>
 		</>
 	)

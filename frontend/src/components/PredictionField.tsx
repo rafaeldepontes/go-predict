@@ -31,7 +31,13 @@ function formatPrediction(text: string) {
 export default function PredictionField({ value, loading }: Props) {
     return (
         <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-            <label>Prediction Output:</label>
+            <label>Prediction Output: <small style={{
+                color: '#6d4e00',
+                marginTop: '-10px',
+                fontSize: 12,
+            }}>
+                (This process may take a few moments. Please be patient...)
+            </small></label>
             <div
                 className="prediction-box"
                 style={{

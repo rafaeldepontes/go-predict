@@ -1,0 +1,8 @@
+.footer {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 16px;
+  width: 102.3%;
+}
