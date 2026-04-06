@@ -23,11 +23,11 @@ func NewCache[T any]() cache.Cache[string, T] {
 }
 
 func (i *imgCache[T]) Add(key string, value T) {
-	i.AddWithTLS(key, value, nil)
+	i.AddWithTTL(key, value, nil)
 }
 
 // Add implements [cache.Cache].
-func (i *imgCache[T]) AddWithTLS(key string, value T, duration *time.Duration) {
+func (i *imgCache[T]) AddWithTTL(key string, value T, duration *time.Duration) {
 	expiresAt := time.Now()
 
 	var defaultDuration *time.Duration = getPtr((time.Duration)(cache.DefaultDuration))
